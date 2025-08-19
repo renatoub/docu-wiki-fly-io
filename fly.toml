@@ -1,0 +1,33 @@
+app = "Wiki"
+primary_region = "gru"
+
+[build]
+  image = "dokuwiki/dokuwiki:stable"
+
+[env]
+  # Variáveis opcionais do DokuWiki podem ser definidas aqui, se necessário.
+
+[[mounts]]
+  source = "wikistorage"
+  destination = "/storage"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [services.concurrency]
+    type = "connections"
+    soft_limit = 25
+    hard_limit = 50
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
