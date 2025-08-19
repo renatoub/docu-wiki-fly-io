@@ -1,4 +1,4 @@
-app = "Wiki"
+app = "wiki"
 primary_region = "gru"
 
 [build]
